@@ -119,4 +119,15 @@
     });
   });
 
+  describe('Return a list of users by date', function() {
+    return it('Should return a set of users based on last transaction date', function(done) {
+      return db.getCustomers(null, null, function(err, callback) {
+        var rows;
+        should.not.exist(err);
+        rows = callback;
+        return done();
+      });
+    });
+  });
+
 }).call(this);

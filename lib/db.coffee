@@ -17,6 +17,23 @@ exports.Db = class Db
       if err
         console.log "Error: " + err
 
+  getCustomers: (startDate, endDate, callback) ->
+    if !startDate and !endDate
+      # No date set - Default to last 7 days
+  
+      @mysql.query "SELECT * FROM users as u INNER JOIN transactions as t ON t.transaction_uid = u.uid WHERE u.date_added between date_sub(now(),INTERVAL 1 WEEK) and now() AND t.transaction_created_date between date_sub(now(),INTERVAL 1 WEEK) and now()", (err, rows) ->
+        console.log err
+        console.log rows
+
+        callback err, rows        
+    else
+      @mysql.query "SELECT * FROM users as u INNER JOIN transactions as t ON t.transaction_uid = u.uid WHERE t.transaction_created_date > WHERE t.transaction_created_date >= #{startDate} AND t.transaction_created_date < #{endDate}", (err, rows) ->
+      
+        console.log err
+        console.log rows
+  
+        callback err, rows
+    
   getTransaction: (id, callback) ->
     if id
       @mysql.query "Select * FROM transactions WHERE transaction_id = #{id}", (err, rows) ->
@@ -50,10 +67,7 @@ exports.Db = class Db
         AND te.transaction_entry_uid =  '3704' ) "
         
       query += "GROUP BY te.transaction_entry_type"
-      
-      console.log query
-      
-      # console.log query
+    
       @mysql.query query, (err, rows) ->
         if err
           console.log 'Error: ' + err

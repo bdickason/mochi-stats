@@ -99,3 +99,15 @@ describe 'Get a group of transaction entries by date', ->
       err.should.equal "Error: No end date defined"
       should.not.exist callback
       done()
+      
+
+describe 'Return a list of users by date', ->
+
+  it 'Should return a set of users based on last transaction date', (done) ->
+    # Stub Data
+
+    db.getCustomers null, null, (err, callback) ->
+      should.not.exist err
+      rows = callback
+      
+      done()
