@@ -15,11 +15,9 @@
     "express": "3.0.6",
     "coffee-script": "1.4.0",
     "mysql": "2.0.0-alpha5",
-    "jade": "0.28.1"
-    }
-  , "devDependencies": {
-        "mocha": "1.8.1",
-    		"should": "1.2.1"
+    "jade": "0.28.1",
+		"mocha": "1.8.1",
+		"should": "1.2.1"
     }
   , "main": "index"
   , "engines": { "node": ">= 0.4.0" }
