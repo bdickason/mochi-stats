@@ -4,7 +4,7 @@
 
   express = require('express');
 
-  Db = (require('./lib/db.js')).Db;
+  Db = (require('./srv/lib/db.js')).Db;
 
   cfg = require('./cfg/config.js');
 
@@ -13,6 +13,12 @@
   app.use(express.bodyParser());
 
   app.use(express.cookieParser());
+
+  app.set('views', __dirname + '/srv/views');
+
+  app.set('view engine', 'jade');
+
+  app.use(express["static"](__dirname + '/client'));
 
   /* Initialize DB
   */
@@ -24,9 +30,23 @@
   */
 
 
-  /* Routes
+  /* Client Routes
   */
 
+
+  app.get('/', function(req, res) {
+    return res.render('index');
+  });
+
+  /* API Routes
+  */
+
+
+  app.get('/customers', function(req, res) {
+    return db.getCustomers(null, null, function(err, callback) {
+      return res.send(callback);
+    });
+  });
 
   /* Start the App
   */

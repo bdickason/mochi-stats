@@ -11,7 +11,7 @@
 
   should = require('should');
 
-  Db = (require('../lib/db.js')).Db;
+  Db = (require('../srv/lib/db.js')).Db;
 
   /* Initialize DB
   */
@@ -125,6 +125,7 @@
         var rows;
         should.not.exist(err);
         rows = callback;
+        rows.length.should.be > 0;
         return done();
       });
     });

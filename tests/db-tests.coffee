@@ -2,7 +2,7 @@
 
 cfg = require '../cfg/config.js'
 should = require 'should'
-Db = (require '../lib/db.js').Db
+Db = (require '../srv/lib/db.js').Db
 
 ### Initialize DB ###
 db = new Db cfg
@@ -109,5 +109,6 @@ describe 'Return a list of users by date', ->
     db.getCustomers null, null, (err, callback) ->
       should.not.exist err
       rows = callback
+      rows.length.should.be > 0
       
       done()
